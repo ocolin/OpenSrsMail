@@ -1,0 +1,34 @@
+{
+    "name": "cruzio/open-srs-mail",
+    "description": "REST Client for OpenSRS Email API",
+    "type": "library",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/ocolin/EasyEnv"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^7.9",
+        "monolog/monolog": "^3.9",
+        "ocolin/easyenv": "1.1",
+        "php": ">=8.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^12.1",
+        "phpstan/phpstan": "^2.1"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Cruzio\\OpenSrsMail\\": "src/",
+            "Cruzio\\OpenSrsMail\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Colin Miller",
+            "email": "ocolin@cruzio.com"
+        }
+    ]
+}
