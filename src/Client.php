@@ -17,7 +17,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use Ocolin\OpenSrsMail\Types\Credentials;
 use Ocolin\OpenSrsMail\Types\Error;
 
-class Mail
+class Client
 {
     /**
      * @var HTTP HTTP Client.
