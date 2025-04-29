@@ -12,9 +12,9 @@ There are two ways to configure the client. One is to provide them in the constr
 
 See .env.example
 
-OPENSRS_SERVER - The URL of the OpenSRS API server
-OPENSRS_USER - The username of your OpenSRS account
-OPENSRS_PASS - The password of your OpenSRS account
+- OPENSRS_SERVER - The URL of the OpenSRS API server
+- OPENSRS_USER - The username of your OpenSRS account
+- OPENSRS_PASS - The password of your OpenSRS account
 
 ## Examples
 
@@ -22,7 +22,7 @@ OPENSRS_PASS - The password of your OpenSRS account
 
 ```
 // Create client using API info
-$opensrs = new Ocolin\OpenSrsMail\Mail(
+$client = new Ocolin\OpenSrsMail\Client(
     base_uri: 'https://admin.test.hostedemail.com/api/',
     user: 'myusername@example.com',
     pass: 'MyPassword'
@@ -36,7 +36,7 @@ $payload = [
 ];
 
 // Specify the method name of the API, and provide the payload
-$output = $opensrs->call( method: 'authenticate', payload: $payload );
+$output = $client->call( method: 'authenticate', payload: $payload );
 ```
 
 ### Creating Client with Environment variables
@@ -48,7 +48,7 @@ $_ENV['OPENSRS_USER'] = 'myusername@example.com';
 $_ENV['OPENSRS_PASS'] = 'MyPassword';
     
 // Create your API client
-$opensrs = new Ocolin\OpenSrsMail\Mail();
+$client = new Ocolin\OpenSrsMail\Client();
 
 // Create your payload to send to the API
 $payload = [
@@ -58,5 +58,5 @@ $payload = [
  ];
  
 // Make call to client specifying which method, and the payload to send
-$output = $opensrs->call( method: 'authenticate', payload: $payload );
+$output = $client->call( method: 'authenticate', payload: $payload );
 ```
