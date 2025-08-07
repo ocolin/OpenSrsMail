@@ -36,7 +36,7 @@ $payload = [
 ];
 
 // Specify the method name of the API, and provide the payload
-$output = $client->call( method: 'authenticate', payload: $payload );
+$output = $client->call( method: 'authenticate', payload: $payload )->body;
 ```
 
 ### Creating Client with Environment variables
@@ -58,5 +58,5 @@ $payload = [
  ];
  
 // Make call to client specifying which method, and the payload to send
-$output = $client->call( method: 'authenticate', payload: $payload );
+$output = $client->call( method: 'authenticate', payload: $payload )->body;
 ```

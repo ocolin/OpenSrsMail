@@ -61,14 +61,14 @@ class Client
 ------------------------------------------------------------- */
 
     /**
-     * @param string $method API method to call.
+     * @param string $path API end-point path to call.
      * @param object|array<string,mixed> $payload Data to send to API
      * @return object Response object from API
      * @throws GuzzleException
      */
     public function call(
-              string $method,
-        object|array $payload= []
+              string $path,
+        object|array $payload = []
     ) : object
     {
         if(
@@ -78,13 +78,13 @@ class Client
             return new Error( error: "Client: Invalid login credentials" );
         }
 
-        if( gettype($payload) === 'array' ) {
-            $payload = (object)$payload; //
+        if( gettype( value: $payload ) === 'array' ) {
+            $payload = (object)$payload;
         }
 
         $payload->credentials = $this->credentials; // @phpstan-ignore property.notFound
 
-        return $this->http->post( path: $method, payload: $payload );
+        return $this->http->post( path: $path, payload: $payload );
     }
 
 
@@ -102,7 +102,7 @@ class Client
     private static function get_User( ?string $user ) : string
     {
         if( $user !== null ) { return $user; }
-        if( gettype( $_ENV['OPENSRS_USER'] ) === 'string' ) {
+        if( gettype( value: $_ENV['OPENSRS_USER'] ) === 'string' ) {
             return $_ENV['OPENSRS_USER'];
         }
 
@@ -123,7 +123,7 @@ class Client
     private static function get_Pass( ?string $pass ) : string
     {
         if( $pass !== null ) { return $pass; }
-        if( gettype($_ENV['OPENSRS_PASS']) === 'string' ) {
+        if( gettype( value: $_ENV['OPENSRS_PASS'] ) === 'string' ) {
             return $_ENV['OPENSRS_PASS'];
         }
 

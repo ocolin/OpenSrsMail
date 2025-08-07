@@ -12,6 +12,8 @@ use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Ocolin\OpenSrsMail\Types\Error;
+use Ocolin\OpenSrsMail\Types\Data;
+use Psr\Http\Message\ResponseInterface;
 
 class HTTP
 {
@@ -110,7 +112,7 @@ class HTTP
             return new Error( error: $e->getMessage());
         }
 
-        return (object)json_decode( json: $request->getBody()->getContents());
+        return self::return_Results( request: $request );
     }
 
 
@@ -130,6 +132,7 @@ class HTTP
             'Content-type'    => 'application/json; charset=utf-8',
             'Accept'          => 'application/json',
             'User-Agent'      => 'Cruzio Client 2.0',
+            'Accept-Charset'  => 'utf-8',
         ];
     }
 
@@ -137,7 +140,6 @@ class HTTP
 
 /* LOAD API URL
 ------------------------------------------------------------- */
-
 
     /**
      * If no URL is specified, look for the environment
@@ -161,5 +163,38 @@ class HTTP
         }
 
         return $_ENV['OPENSRS_SERVER'];
+    }
+
+
+
+/* RETURN HTTP RESPONSE RESULTS
+---------------------------------------------------------------------------- */
+
+    /**
+     * @param ResponseInterface $request Guzzle Request object.
+     * @return Data API data object
+     */
+    private static function return_Results( ResponseInterface $request ) : object
+    {
+        $output = new Data(
+            status: $request->getStatusCode(),
+            status_message: $request->getReasonPhrase(),
+            headers: $request->getHeaders(),
+            body: $request->getBody()->getContents()
+        );
+
+        if(
+            isset( $output->headers['Content-Type'] ) AND
+            str_contains(
+                haystack: $output->headers['Content-Type'][0],
+                needle: 'application/json'
+            )
+        ) {
+            $output->body = json_decode( json: $output->body );
+        }
+
+        if( $output->body == null ) { $output->body = []; }
+
+        return $output;
     }
 }
