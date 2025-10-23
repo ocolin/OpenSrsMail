@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+        bootstrap="./tests/bootstrap.php"
+        colors="true"
+        stopOnFailure="true"
+        beStrictAboutChangesToGlobalState="true"
+        cacheDirectory=".phpunit.cache"
+        displayDetailsOnTestsThatTriggerWarnings="true"
+        displayDetailsOnTestsThatTriggerDeprecations="true"
+>
+    <testsuites>
+        <testsuite name="user">
+<!--            <file>tests/User/SearchAdminTest.php</file>-->
+<!--            <file>tests/User/SearchUserTest.php</file>-->
+            <file>tests/User/GetUserTest.php</file>
+        </testsuite>
+        <testsuite name="tests">
+<!--            <file>tests/EchoTest.php</file>-->
+<!--            <file>tests/CompanyTest.php</file>-->
+<!--            <file>tests/UserTest.php</file>-->
+<!--            <file>tests/UserSearchTest.php</file>-->
+        </testsuite>
+    </testsuites>
+</phpunit>

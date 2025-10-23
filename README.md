@@ -4,6 +4,10 @@
 
 This is a small lightweight API client for the OpenSRS Email API. Once configured it allows you to only have to worry about the API method and data. 
 
+## API Documents
+
+https://email.opensrs.guide/docs/
+
 ## Settings
 
 There are two ways to configure the client. One is to provide them in the constructor when instantiating an object, The other is by using environment variables in the program calling this library.

@@ -155,14 +155,14 @@ class HTTP
         if( $url !== null ) { return $url; }
 
         if(
-            empty( $_ENV['OPENSRS_SERVER'] ) OR
-            gettype( $_ENV['OPENSRS_SERVER'] ) !== 'string'
+            empty( $_ENV['OPENSRS_MAIL_SERVER'] ) OR
+            gettype( $_ENV['OPENSRS_MAIL_SERVER'] ) !== 'string'
         )
         {
-            throw new \Exception( message: "Client: Invalid API URL" );
+            throw new Exception( message: "Client: Invalid API URL" );
         }
 
-        return $_ENV['OPENSRS_SERVER'];
+        return $_ENV['OPENSRS_MAIL_SERVER'];
     }
 
 
@@ -190,7 +190,9 @@ class HTTP
                 needle: 'application/json'
             )
         ) {
-            $output->body = json_decode( json: $output->body );
+            if( is_string( value: $output->body )) {
+                $output->body = json_decode(json: $output->body);
+            }
         }
 
         if( $output->body == null ) { $output->body = []; }

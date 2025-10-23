@@ -15,7 +15,7 @@ namespace Ocolin\OpenSrsMail;
 use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 use Ocolin\OpenSrsMail\Types\Credentials;
-use Ocolin\OpenSrsMail\Types\Error;
+use Ocolin\OpenSrsMail\Types\Payload;
 
 class Client
 {
@@ -30,8 +30,8 @@ class Client
     private Credentials $credentials;
 
 
-/* Constructor
-------------------------------------------------------------- */
+/*
+------------------------------------------------------------------------------ */
 
     /**
      * @param HTTP|null $http Guzzle HTTP handler.
@@ -51,46 +51,46 @@ class Client
     {
         $this->http = $http ?? new HTTP( base_uri: $base_uri );
         $this->credentials = $credentials ?? new Credentials(
-                user: self::get_User( user: $user ),
-            password: self::get_Pass( pass: $pass ),
+                user: self::validate_User( user: $user ),
+            password: self::validate_Pass( pass: $pass ),
         );
     }
 
 
-/* CALL API METHOD
-------------------------------------------------------------- */
+
+/*
+------------------------------------------------------------------------------ */
 
     /**
-     * @param string $path API end-point path to call.
-     * @param object|array<string,mixed> $payload Data to send to API
-     * @return object Response object from API
+     * @param string $call API end-point path to call.
+     * @param Payload|array<string,mixed> $payload Data to send to API
      * @throws GuzzleException
      */
+
     public function call(
-              string $path,
-        object|array $payload = []
+               string $call,
+        Payload|array $payload = []
     ) : object
     {
-        if(
-            empty( $this->credentials->user ) OR
-            empty( $this->credentials->password )
-        ) {
-            return new Error( error: "Client: Invalid login credentials" );
+        if( is_array( $payload )) {
+            $payload = self::convertToPayload( input: $payload );
         }
 
-        if( gettype( value: $payload ) === 'array' ) {
-            $payload = (object)$payload;
+        if( empty( $payload->credentials )) {
+            $payload->credentials = $this->credentials;
         }
 
-        $payload->credentials = $this->credentials; // @phpstan-ignore property.notFound
-
-        return $this->http->post( path: $path, payload: $payload );
+        return $this->http->post( path: $call, payload: $payload );
     }
 
 
+use EchoTrait;
+use CompanyTrait;
+use UserTrait;
 
-/* GET API USERNAME
-------------------------------------------------------------- */
+
+/*
+------------------------------------------------------------------------------ */
 
     /**
      * If no username is provided, check for environment variable.
@@ -99,19 +99,20 @@ class Client
      * @param string|null $user API username.
      * @return string API username.
      */
-    private static function get_User( ?string $user ) : string
+    private static function validate_User( ?string $user ) : string
     {
         if( $user !== null ) { return $user; }
-        if( gettype( value: $_ENV['OPENSRS_USER'] ) === 'string' ) {
-            return $_ENV['OPENSRS_USER'];
+        if( gettype( value: $_ENV['OPENSRS_MAIL_USER'] ) === 'string' ) {
+            return $_ENV['OPENSRS_MAIL_USER'];
         }
 
         return "";
     }
 
 
-/* GET API PASSWORD
-------------------------------------------------------------- */
+
+/*
+------------------------------------------------------------------------------ */
 
     /**
      * If a password is not provided, check for environment
@@ -120,13 +121,36 @@ class Client
      * @param string|null $pass API password.
      * @return string API Password.
      */
-    private static function get_Pass( ?string $pass ) : string
+    private static function validate_Pass( ?string $pass ) : string
     {
         if( $pass !== null ) { return $pass; }
-        if( gettype( value: $_ENV['OPENSRS_PASS'] ) === 'string' ) {
-            return $_ENV['OPENSRS_PASS'];
+        if( gettype( value: $_ENV['OPENSRS_MAIL_PASS'] ) === 'string' ) {
+            return $_ENV['OPENSRS_MAIL_PASS'];
         }
 
         return "";
     }
+
+
+
+/*
+------------------------------------------------------------------------------ */
+
+    /**
+     * @param array<string, mixed>|object $input List of payload parameters.
+     * @return Payload Payload object.
+     */
+    public function convertToPayload( array|object $input ) : Payload
+    {
+        $payload = new Payload();
+        if( is_object( $input )) {
+            $input = get_object_vars( $input );
+        }
+        foreach( $input as $key => $value ) {
+            $payload->{$key} = $value;
+        }
+
+        return $payload;
+    }
+
 }
