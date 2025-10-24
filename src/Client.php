@@ -90,6 +90,7 @@ use DomainTrait;
 use WorkgroupTrait;
 use UserTrait;
 use BrandTrait;
+use StatsTrait;
 
 
 /*
