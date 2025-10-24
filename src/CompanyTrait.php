@@ -11,7 +11,7 @@ use Ocolin\OpenSrsMail\Types\SearchRange;
 trait CompanyTrait
 {
 
-/*
+/* CHANGE COMPANY
 ------------------------------------------------------------------------------ */
 
     /**
@@ -19,7 +19,7 @@ trait CompanyTrait
      *
      * @param string $company The name of the company you want to change.
      * @param CompanyAttributes $attributes A hash of company level attributes
-     * and values.
+     *  and values.
      * @return object|null
      * @throws GuzzleException
      */
@@ -37,7 +37,7 @@ trait CompanyTrait
 
 
 
-/*
+/* CHANGE COMPANY BULLETIN
 ------------------------------------------------------------------------------ */
 
     /**
@@ -53,17 +53,17 @@ trait CompanyTrait
      * @param string $company The name of the company.
      * @param string $bulletin The name of the bulletin you want to create, change, or delete.
      *
-     * Note: All bulletins in a company must have a unique type and name. That is, it is
-     * possible for anautobulletin and amanualbulletin to have the same name, but not
-     * for two auto** bulletins to have the same name.
+     *  Note: All bulletins in a company must have a unique type and name. That is, it is
+     *  possible for anautobulletin and amanualbulletin to have the same name, but not
+     *  for two auto** bulletins to have the same name.
      *
      * @param string $type Specify the bulletin type. Allowed values are:
-     * auto — The bulletin is automatically sent to new users when their accounts are created.
-     * manual — The bulletin is sent only when the post_company_bulletin method is run.
+     *  auto — The bulletin is automatically sent to new users when their accounts are created.
+     *  manual — The bulletin is sent only when the post_company_bulletin method is run.
      *
      * @param string|null $bulletin_text The text of the bulletin. Bulletins must be
      *  formatted as a raw email. If the bulletin_text does not contain a Date header,
-     * a header will be appended, with the date that the bulletin was posted.
+     *  a header will be appended, with the date that the bulletin was posted.
      *
      *  The text can include the following variables:
      *  {'account'} — The recipient's mailbox address (joe_user@example.com).
@@ -90,11 +90,12 @@ trait CompanyTrait
 
 
 
-/*
+/* GET COMPANY
 ------------------------------------------------------------------------------ */
 
     /**
-     * The get_company method retrieves settings and other information for a specified company.
+     * The get_company method retrieves settings and other information for
+     * a specified company.
      *
      * @param string $company The company whose settings you want to view.
      * @return object|null Response object.
@@ -113,7 +114,7 @@ trait CompanyTrait
 
 
 
-/*
+/* GET COMPANY BULLETIN
 ------------------------------------------------------------------------------ */
 
     /**
@@ -123,8 +124,8 @@ trait CompanyTrait
      * @param string $company The name of the company.
      * @param string $bulletin The name of the bulletin you want to view.
      * @param string $type Specify the bulletin type. Allowed values are:
-     * auto — The bulletin is automatically sent to new users when their accounts are created.
-     * manual — The bulletin is sent only when the post_company_bulletin ADD LINK method is run.
+     *  auto — The bulletin is automatically sent to new users when their accounts are created.
+     *  manual — The bulletin is sent only when the post_company_bulletin ADD LINK method is run.
      * @return object|null Response object.
      * @throws GuzzleException
      */
@@ -143,7 +144,7 @@ trait CompanyTrait
 
 
 
-/*
+/* GET COMPANY CHANGES
 ------------------------------------------------------------------------------ */
 
     /**
@@ -174,7 +175,8 @@ trait CompanyTrait
     }
 
 
-/*
+
+/* POST COMPANY BULLETIN
 ------------------------------------------------------------------------------ */
 
     /**
@@ -184,9 +186,9 @@ trait CompanyTrait
      * @param string $company The name of the company.
      * @param string $bulletin The name of the bulletin you want to view.
      * @param string $type Specify the bulletin type.
-     * Allowed values are:
-     * auto — The bulletin is automatically sent to new users when their accounts are created.
-     * manual — The bulletin is sent only when the post_company_bulletin method is run.
+     *  Allowed values are:
+     *  auto — The bulletin is automatically sent to new users when their accounts are created.
+     *  manual — The bulletin is sent only when the post_company_bulletin method is run.
      * @param string|null $test_email Sends the bulletin to only the specified email address.
      * @return object|null Response object.
      * @throws GuzzleException

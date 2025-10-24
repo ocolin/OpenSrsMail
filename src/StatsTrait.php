@@ -9,7 +9,7 @@ use GuzzleHttp\Exception\GuzzleException;
 trait StatsTrait
 {
 
-/*
+/* LIST STATS
 ------------------------------------------------------------------------------ */
 
     /**
@@ -29,7 +29,7 @@ trait StatsTrait
 
 
 
-/*
+/* GET STATS URL
 ------------------------------------------------------------------------------ */
 
     /**
@@ -37,10 +37,10 @@ trait StatsTrait
      * snapshot can be downloaded.
      *
      * @param string $type The type of entity for which you want to see statistics.
-     * Allowed values are company or domain.
+     *  Allowed values are company or domain.
      * @param string $object The name of the company or domain.
      * @param string $date The date for which you want to see statistics, in the format
-     * YYYY-MM. Available periods can be retrieved by using the stats_list method.
+     *  YYYY-MM. Available periods can be retrieved by using the stats_list method.
      * @return object|null Response object.
      * @throws GuzzleException
      */
@@ -59,7 +59,7 @@ trait StatsTrait
 
 
 
-/*
+/* STATS SUMMARY
 ------------------------------------------------------------------------------ */
 
     /**
@@ -67,15 +67,15 @@ trait StatsTrait
      * domain, or company.
      *
      * @param string $type The type of object. Allowed values are company,
-     * domain, or user.
+     *  domain, or user.
      * @param string $object The name of the company, domain, or user for
-     * which you want to view statistics.
+     *  which you want to view statistics.
      * @param string $by The interval that you want displayed in the response
-     * for the statistics summary. Allowed values are day, week, and month.
+     *  for the statistics summary. Allowed values are day, week, and month.
      *
-     * day—Display information for each of the most recent 30 days.
-     * week—Display information for each of the most recent 52 weeks;; each week begins on a Monday.
-     * month—Display information for the most recent 48 months.
+     *  day—Display information for each of the most recent 30 days.
+     *  week—Display information for each of the most recent 52 weeks;; each week begins on a Monday.
+     *  month—Display information for the most recent 48 months.
      *
      * @return object|null Response object.
      * @throws GuzzleException

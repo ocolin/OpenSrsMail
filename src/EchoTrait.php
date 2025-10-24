@@ -10,15 +10,18 @@ use Ocolin\OpenSrsMail\Types\Payload;
 trait EchoTrait
 {
 
-/*
+/* ECHO
 ------------------------------------------------------------- */
 
     /**
-     * @param Payload|array<string,mixed> $payload
-     * @return object|null
+     * The echo method returns the JSON request and has no
+     * other effect. It is used for testing and debugging.
+     *
+     * @param array<string,mixed> $payload
+     * @return object|null Response object.
      * @throws GuzzleException
      */
-    public function echo( Payload|array $payload ) : object | null
+    public function echo( array $payload ) : object | null
     {
         $output = $this->call( call: 'echo', payload: $payload );
 

@@ -14,7 +14,7 @@ use Ocolin\OpenSrsMail\Types\SearchSort;
 trait DomainTrait
 {
 
-/*
+/* CHANGE DOMAIN
 ------------------------------------------------------------------------------ */
 
     /**
@@ -23,10 +23,10 @@ trait DomainTrait
      *
      * @param string $domain The domain that you want to create or change.
      * @param DomainAttributes|array<string, mixed> $attributes The list of fields
-     * that you want to configure and their values.
+     *  that you want to configure and their values.
      * @param bool $create_only Used to prevent changes to existing domains. If
-     * set to true and the specified domain exists, the domain will not be modified
-     * and an error will be returned.
+     *  set to true and the specified domain exists, the domain will not be modified
+     *  and an error will be returned.
      * @return object|null Response object.
      * @throws GuzzleException
      */
@@ -50,7 +50,7 @@ trait DomainTrait
 
 
 
-/*
+/* CHANGE DOMAIN BULLETIN
 ------------------------------------------------------------------------------ */
 
     /**
@@ -66,22 +66,22 @@ trait DomainTrait
      * @param string $domain The domain to which the bulletin applies.
      * @param string $bulletin The name of the bulletin you want to create, edit, or delete.
      *
-     * Note: All bulletins in a domain must have a unique type and name. That is,
-     * it is possible for an autobulletin and a manual** bulletin to have the same
-     * name, but not for two auto bulletins to hav the same name.
+     *  Note: All bulletins in a domain must have a unique type and name. That is,
+     *  it is possible for an autobulletin and a manual** bulletin to have the same
+     *  name, but not for two auto bulletins to hav the same name.
      * @param string $type The bulletin delivery method. Allowed values are:
-     * auto — Bulletin is automatically sent to newly created users
-     * manual — Bulletins are only sent via the post_domain_bulletin method.
+     *  auto — Bulletin is automatically sent to newly created users
+     *  manual — Bulletins are only sent via the post_domain_bulletin method.
      * @param string|null $bulletin_text The text of the bulletin. Bulletins must
-     * be formatted as a raw email. If the bulletin_text does not contain a
-     * Date header, a header will be appended, with the date that the bulletin
-     * was posted.
+     *  be formatted as a raw email. If the bulletin_text does not contain a
+     *  Date header, a header will be appended, with the date that the bulletin
+     *  was posted.
      *
-     * The text can include the following variables:
-     * {'account'} — The recipient's mailbox address (joe_user@example.com).
-     * {'domain'} — The domain to which the user belongs (example.com).
-     * {'name'} — The recipient's name.
-     * {'title'} — The recipient's title.
+     *  The text can include the following variables:
+     *  {'account'} — The recipient's mailbox address (joe_user@example.com).
+     *  {'domain'} — The domain to which the user belongs (example.com).
+     *  {'name'} — The recipient's name.
+     *  {'title'} — The recipient's title.
      * @return object|null Response object.
      * @throws GuzzleException
      */
@@ -105,7 +105,7 @@ trait DomainTrait
 
 
 
-/*
+/* DELETE DOMAIN
 ------------------------------------------------------------------------------ */
 
     /**
@@ -128,7 +128,7 @@ trait DomainTrait
 
 
 
-/*
+/* GET DOMAIN
 ------------------------------------------------------------------------------ */
 
     /**
@@ -149,7 +149,7 @@ trait DomainTrait
 
 
 
-/*
+/* GET DOMAIN BULLETIN
 ------------------------------------------------------------------------------ */
 
     /**
@@ -158,8 +158,8 @@ trait DomainTrait
      * @param string $domain The name of the domain the bulletin is in.
      * @param string $bulletin The name of the bulletin you want to view.
      * @param string $type The type of bulletin. Allowed values are:
-     * auto — Bulletin is automatically sent to newly created users
-     * manual — Bulletins are only sent via the post_domain_bulletin method.
+     *  auto — Bulletin is automatically sent to newly created users
+     *  manual — Bulletins are only sent via the post_domain_bulletin method.
      * @return object|null Response object.
      * @throws GuzzleException
      */
@@ -178,7 +178,7 @@ trait DomainTrait
 
 
 
-/*
+/* GET DOMAIN CHANGES
 ------------------------------------------------------------------------------ */
 
     /**
@@ -209,7 +209,7 @@ trait DomainTrait
 
 
 
-/*
+/* POST DOMAIN BULLETIN
 ------------------------------------------------------------------------------ */
 
     /**
@@ -219,11 +219,11 @@ trait DomainTrait
      * @param string $domain The name of the domain.
      * @param string $bulletin The name of the bulletin you want to view.
      * @param string $type The bulletin type. Allowed values are:
-     * auto — The bulletin is automatically sent to new users when their accounts are created.
-     * manual — The bulletin is sent only when the post_domain_bulletin method is run.
+     *  auto — The bulletin is automatically sent to new users when their accounts are created.
+     *  manual — The bulletin is sent only when the post_domain_bulletin method is run.
      * @param string|null $test_email Send the bulletin to only the specified
-     * email address. If not specified, the bulletin is sent to all mailboxes
-     * in the domain.
+     *  email address. If not specified, the bulletin is sent to all mailboxes
+     *  in the domain.
      * @return object|null Response object.
      * @throws GuzzleException
      */
@@ -244,7 +244,7 @@ trait DomainTrait
 
 
 
-/*
+/* RESTORE DOMAIN
 ------------------------------------------------------------------------------ */
 
     /**
@@ -252,9 +252,9 @@ trait DomainTrait
      *
      * @param string $domain The current name of the domain you want to restore.
      * @param string $id The domain id. This value can be retrieved by using
-     * the search_domains method with the deleted field set to true.
+     *  the search_domains method with the deleted field set to true.
      * @param string $new_name The new name for the domain. This value must be
-     * submitted, but can be the same as domain (the original domain name).
+     *  submitted, but can be the same as domain (the original domain name).
      * @return object|null Response object.
      * @throws GuzzleException
      */
@@ -273,7 +273,7 @@ trait DomainTrait
 
 
 
-/*
+/* SEARCH DOMAIN
 ------------------------------------------------------------------------------ */
 
     /**
@@ -294,7 +294,7 @@ trait DomainTrait
 
 
 
-/*
+/* PUSH DOMAIN
 ------------------------------------------------------------------------------ */
 
     /**
@@ -320,7 +320,7 @@ trait DomainTrait
 
 
 
-/*
+/* CREATE SEARCH DTO
 ------------------------------------------------------------------------------ */
 
     /**

@@ -16,15 +16,14 @@ use Ocolin\OpenSrsMail\Types\TokenPayload;
 trait UserTrait
 {
 
-
-/*
+/* SEARCH ADMINISTRATORS
 ------------------------------------------------------------------------------ */
 
     /**
      * The search_admins method retrieves a list of the admins in a specified company.
      *
      * @param SearchAdminsType|array<string, mixed> $attributes Attributes
-     * to configure search.
+     *  to configure search.
      * @return object|null Object with search results or errors.
      * @throws GuzzleException
      */
@@ -38,7 +37,7 @@ trait UserTrait
 
 
 
-/*
+/* CHANGE USER
 ------------------------------------------------------------------------------ */
 
     /**
@@ -46,10 +45,10 @@ trait UserTrait
      *
      * @param string $user Mailbox name to add.
      * @param object|array<string, mixed> $attributes List of settings to set,
-     * including password.
+     *  including password.
      * @param bool $create_only Used to prevent changes to existing accounts. If
-     * set to true and the specified user exists, the account will not be modified
-     * and an error will be returned.
+     *  set to true and the specified user exists, the account will not be modified
+     *  and an error will be returned.
      * @return object|null A response object showing if change was successful.
      * @throws GuzzleException
      */
@@ -74,7 +73,7 @@ trait UserTrait
 
 
 
-/*
+/* DELETE USER
 ------------------------------------------------------------------------------ */
 
     /**
@@ -95,7 +94,7 @@ trait UserTrait
 
 
 
-/*
+/* GENERATE TOKEN
 ------------------------------------------------------------------------------ */
 
     /**
@@ -106,7 +105,7 @@ trait UserTrait
      * @param string $reason The reason that the token was generated.
      * @param int $duration The number of hours for which the token is valid.
      * @param bool $oma If set to true, a session or sso type token may also be
-     * used with the OMA.
+     *  used with the OMA.
      * @param string|null $token The token to add.
      * @param string $type The type of token to generate.
      * @return object|null Response object
@@ -138,7 +137,7 @@ trait UserTrait
 
 
 
-/*
+/* GET DELETE CONTACTS
 ------------------------------------------------------------------------------ */
 
     /**
@@ -159,7 +158,7 @@ trait UserTrait
 
 
 
-/*
+/* GET DELETED MESSAGES
 ------------------------------------------------------------------------------ */
 
     /**
@@ -173,8 +172,8 @@ trait UserTrait
      *
      * @param string $user The user whose deleted messages you want to list.
      * @param string|null $folder Name of the folder to search. You can specify
-     * deleted as well as current folders. If not specified, messages in all
-     * folders will be returned.
+     *  deleted as well as current folders. If not specified, messages in all
+     *  folders will be returned.
      * @param string[] $headers Specify the headers that you want returned.
      * @return object|null
      * @throws GuzzleException
@@ -200,7 +199,7 @@ trait UserTrait
 
 
 
-/*
+/* GET USER
 ------------------------------------------------------------------------------ */
 
     /**
@@ -227,7 +226,7 @@ trait UserTrait
 
 
 
-/*
+/* GET USER ATTRIBUTE HISTORY
 ------------------------------------------------------------------------------ */
 
     /**
@@ -254,7 +253,7 @@ trait UserTrait
 
 
 
-/*
+/* GET USER CHANGES
 ------------------------------------------------------------------------------ */
 
     /**
@@ -286,7 +285,7 @@ trait UserTrait
 
 
 
-/*
+/* GET USER FOLDERS
 ------------------------------------------------------------------------------ */
 
     /**
@@ -307,7 +306,7 @@ trait UserTrait
 
 
 
-/*
+/* GET USER MESSAGES
 ------------------------------------------------------------------------------ */
 
     /**
@@ -316,13 +315,13 @@ trait UserTrait
      *
      * @param string $user The user's account name.
      * @param string|null $folder The folder to search for messages. If not
-     * specified, the INBOX folder is searched.
+     *  specified, the INBOX folder is searched.
      * @param int|null $limit Specify the number of messages to return.
      * @param bool $recent Orders the results with the most recent listed first.
-     * This setting only applies if limit is also specified.
+     *  This setting only applies if limit is also specified.
      * @param bool $unseen Return a list of only those messages that have been
-     * delivered to the user, but have not yet been displayed in the user's mail
-     * client or through Webmail.
+     *  delivered to the user, but have not yet been displayed in the user's mail
+     *  client or through Webmail.
      * @return object|null Response object.
      * @throws GuzzleException
      */
@@ -346,7 +345,7 @@ trait UserTrait
 
 
 
-/*
+/* LOGOUT USER
 ------------------------------------------------------------------------------ */
 
     /**
@@ -367,7 +366,7 @@ trait UserTrait
 
 
 
-/*
+/* MOVE USER MESSAGES
 ------------------------------------------------------------------------------ */
 
     /**
@@ -376,9 +375,9 @@ trait UserTrait
      *
      * @param string $user The user's account name.
      * @param int[] $ids The list of ids that you want to move. The ids are
-     * returned by the get_user_messages method.
+     *  returned by the get_user_messages method.
      * @param string|null $folder The folder to search for messages. If
-     * not specified, the INBOX folder is searched.
+     *  not specified, the INBOX folder is searched.
      * @return object|null
      * @throws GuzzleException
      */
@@ -399,7 +398,7 @@ trait UserTrait
 
 
 
-/*
+/* REINDEX
 ------------------------------------------------------------------------------ */
 
     /**
@@ -407,9 +406,9 @@ trait UserTrait
      *
      * @param string $user The user whose account you want to reindex.
      * @param string|null $folder The folder that you want to reindex. If not
-     * specified, all folders belonging to the user will be reindexed.
+     *  specified, all folders belonging to the user will be reindexed.
      * @param string|null $id The job to check status of. If id is present,
-     * folder is ignored.
+     *  folder is ignored.
      * @return object|null Response object.
      * @throws GuzzleException
      */
@@ -431,7 +430,7 @@ trait UserTrait
 
 
 
-/*
+/* RENAME USER
 ------------------------------------------------------------------------------ */
 
     /**
@@ -456,7 +455,7 @@ trait UserTrait
 
 
 
-/*
+/* RESTORE DELETED CONTACTS
 ------------------------------------------------------------------------------ */
 
     /**
@@ -465,8 +464,8 @@ trait UserTrait
      *
      * @param string $user The name of the mailbox.
      * @param string[] $ids The IDs for the contact that you want to restore. To
-     * get a list of the contact that can be restored, use the get_deleted_
-     * contacts method.
+     *  get a list of the contact that can be restored, use the get_deleted_
+     *  contacts method.
      * @return object|null Response object.
      * @throws GuzzleException
      */
@@ -486,7 +485,7 @@ trait UserTrait
 
 
 
-/*
+/* RESTORE DELETED MESSAGES
 ------------------------------------------------------------------------------ */
 
     /**
@@ -494,8 +493,8 @@ trait UserTrait
      *
      * @param string $user The name of the mailbox.
      * @param int[] $ids The IDs for the messages that you want to restore. To
-     * get a list of the messages that can be restored, use the
-     * get_deleted_messages method.
+     *  get a list of the messages that can be restored, use the
+     *  get_deleted_messages method.
      * @return object|null
      * @throws GuzzleException
      */
@@ -515,7 +514,7 @@ trait UserTrait
 
 
 
-/*
+/* RESTORE USER
 ------------------------------------------------------------------------------ */
 
     /**
@@ -529,7 +528,7 @@ trait UserTrait
      *
      * @param string $user The deleted user's account name (email address).
      * @param int $id A unique ID that identifies the user. To get a list
-     * of the accounts that can be restored, use the search_users method.
+     *  of the accounts that can be restored, use the search_users method.
      * @param string $new_name Rename the restored account.
      * @return object|null Response object.
      * @throws GuzzleException
@@ -553,7 +552,7 @@ trait UserTrait
 
 
 
-/*
+/* SEARCH USERS
 ------------------------------------------------------------------------------ */
 
     /**
@@ -564,7 +563,7 @@ trait UserTrait
      *
      * @param string $domain
      * @param SearchType|null $attributes
-     * @return object|null
+     * @return object|null Response object.
      * @throws GuzzleException
      */
     public function searchUsers(
@@ -585,7 +584,7 @@ trait UserTrait
 
 
 
-/*
+/* SET ROLE
 ------------------------------------------------------------------------------ */
 
     /**
@@ -595,13 +594,13 @@ trait UserTrait
      *
      * @param string $user The user to whom you are assigning a role.
      * @param string $role The name of the role. Allowed values are:
-     * company, company_mail, company_ro, company_token_only, company_view,
-     * domain, mail, and workgroup.
+     *  company, company_mail, company_ro, company_token_only, company_view,
+     *  domain, mail, and workgroup.
      * @param string $object The object over which the user will have
-     * administration rights. Companies, and domains are given by name. Workgroups
-     * are given as "domain/workgroup". A user must be a member of the object
-     * given. For example, a workgroup admin must be in the specified workgroup;
-     * a domain admin must be in the specified domain.
+     *  administration rights. Companies, and domains are given by name. Workgroups
+     *  are given as "domain/workgroup". A user must be a member of the object
+     *  given. For example, a workgroup admin must be in the specified workgroup;
+     *  a domain admin must be in the specified domain.
      * @return object|null Response object.
      * @throws GuzzleException
      */
@@ -620,7 +619,7 @@ trait UserTrait
 
 
 
-/*
+/* NOTIFY USER
 ------------------------------------------------------------------------------ */
 
     /**
@@ -641,7 +640,7 @@ trait UserTrait
 
 
 
-/*
+/* USER DISABLE 2 FACTOR AUTH
 ------------------------------------------------------------------------------ */
 
     /**
@@ -662,7 +661,7 @@ trait UserTrait
 
 
 
-/*
+/* APP PASSWORD
 ------------------------------------------------------------------------------ */
 
     /**
@@ -690,8 +689,8 @@ trait UserTrait
      * @param string $user the user the API call is acting upon.
      * @param string $mode a string, either "add" or "remove".
      * @param string|null $tag a string. for "add", the tag name desired for
-     * this new App Password. tags are constrained to regular ASCII characters
-     * only. For "remove", the tag name of the App Password to remove.
+     *  this new App Password. tags are constrained to regular ASCII characters
+     *  only. For "remove", the tag name of the App Password to remove.
      * @return object|null Response object.
      * @throws GuzzleException
      */
@@ -712,7 +711,7 @@ trait UserTrait
 
 
 
-/*
+/* RESET EMAIL TEST
 ------------------------------------------------------------------------------ */
 
     /**
@@ -722,9 +721,9 @@ trait UserTrait
      *
      * @param string $test_email_rcpt Email ID where test emails will be sent
      * @param string $brand brand id or brand name. If brand name, then company
-     * info must be specified
+     *  info must be specified
      * @param string|null $company Either a company id or company name. Must be
-     * provided if using brand name
+     *  provided if using brand name
      * @return object|null Response object.
      * @throws GuzzleException
      */
@@ -744,7 +743,7 @@ trait UserTrait
 
 
 
-/*
+/* GET SIEVE
 ------------------------------------------------------------------------------ */
 
     /**
@@ -767,7 +766,7 @@ trait UserTrait
 
 
 
-/*
+/* SET SIEVE
 ------------------------------------------------------------------------------ */
 
     /**
@@ -812,7 +811,9 @@ trait UserTrait
         return (object)$output->body;
     }
 
-/*
+
+
+/* CREATE SEARCH OBJECT
 ------------------------------------------------------------------------------ */
 
     /**
@@ -829,7 +830,8 @@ trait UserTrait
     }
 
 
-/*
+
+/* CREATE SEARCH ADMIN OBJECT
 ------------------------------------------------------------------------------ */
 
     /**

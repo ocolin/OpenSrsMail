@@ -30,7 +30,7 @@ class Client
     private Credentials $credentials;
 
 
-/*
+/* CONSTRUCTOR
 ------------------------------------------------------------------------------ */
 
     /**
@@ -58,7 +58,7 @@ class Client
 
 
 
-/*
+/* CALL API
 ------------------------------------------------------------------------------ */
 
     /**
@@ -91,9 +91,10 @@ use WorkgroupTrait;
 use UserTrait;
 use BrandTrait;
 use StatsTrait;
+use MigrateTrait;
 
 
-/*
+/* VALIDATE API USERNAME
 ------------------------------------------------------------------------------ */
 
     /**
@@ -115,7 +116,7 @@ use StatsTrait;
 
 
 
-/*
+/* VALIDATE API PASSWORD
 ------------------------------------------------------------------------------ */
 
     /**
@@ -137,7 +138,7 @@ use StatsTrait;
 
 
 
-/*
+/* CONVERT AN ARRAY OR OBJECT INTO A PAYLOAD DTO
 ------------------------------------------------------------------------------ */
 
     /**
@@ -156,5 +157,4 @@ use StatsTrait;
 
         return $payload;
     }
-
 }

@@ -12,7 +12,7 @@ use Ocolin\OpenSrsMail\Types\WorkgroupSearch;
 trait WorkgroupTrait
 {
 
-/*
+/* CREATE WORKGROUP
 ------------------------------------------------------------------------------ */
 
     /**
@@ -37,7 +37,7 @@ trait WorkgroupTrait
 
 
 
-/*
+/* DELETE WORKGROUP
 ------------------------------------------------------------------------------ */
 
     /**
@@ -62,7 +62,7 @@ trait WorkgroupTrait
 
 
 
-/*
+/* SEARCH WORKGROUPS
 ------------------------------------------------------------------------------ */
 
     /**
@@ -85,7 +85,7 @@ trait WorkgroupTrait
 
 
 
-/*
+/*CREATE WORKGROUP SEARCH DTO
 ------------------------------------------------------------------------------ */
 
     /**
