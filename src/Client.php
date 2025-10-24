@@ -86,7 +86,10 @@ class Client
 
 use EchoTrait;
 use CompanyTrait;
+use DomainTrait;
+use WorkgroupTrait;
 use UserTrait;
+use BrandTrait;
 
 
 /*
