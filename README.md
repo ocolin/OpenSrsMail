@@ -16,9 +16,9 @@ There are two ways to configure the client. One is to provide them in the constr
 
 See .env.example
 
-- OPENSRS_SERVER - The URL of the OpenSRS API server
-- OPENSRS_USER - The username of your OpenSRS account
-- OPENSRS_PASS - The password of your OpenSRS account
+- OPENSRS_MAIL_SERVER - The URL of the OpenSRS API server
+- OPENSRS_MAIL_USER - The username of your OpenSRS account
+- OPENSRS_MAIL_PASS - The password of your OpenSRS account
 
 ## Examples
 
@@ -47,9 +47,9 @@ $output = $client->call( method: 'authenticate', payload: $payload )->body;
 
 ```
 // Set up environment vaiebales somewhere
-$_ENV['OPENSRS_SERVER'] = 'https://admin.test.hostedemail.com/api/';
-$_ENV['OPENSRS_USER'] = 'myusername@example.com';
-$_ENV['OPENSRS_PASS'] = 'MyPassword';
+$_ENV['OPENSRS_MAIL_SERVER'] = 'https://admin.test.hostedemail.com/api/';
+$_ENV['OPENSRS_MAIL_USER'] = 'myusername@example.com';
+$_ENV['OPENSRS_MAIL_PASS'] = 'MyPassword';
     
 // Create your API client
 $client = new Ocolin\OpenSrsMail\Client();
