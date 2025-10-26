@@ -6,6 +6,7 @@ namespace Ocolin\OpenSrsMail;
 
 use GuzzleHttp\Exception\GuzzleException;
 use Ocolin\OpenSrsMail\Types\BrandCriteria;
+use Ocolin\OpenSrsMail\Types\BrandMemberCriteria;
 use Ocolin\OpenSrsMail\Types\SearchBrands;
 use Ocolin\OpenSrsMail\Types\SearchRange;
 use Ocolin\OpenSrsMail\Types\BrandMember;
@@ -40,12 +41,12 @@ trait BrandTrait
      * The search_brand_members method retrieves a list of domains or users
      * that have the requested brand applied to them.
      *
-     * @param SearchBrands|array<string,mixed> $search Narrows the search for brands.
+     * @param BrandMember|array<string,mixed> $search Narrows the search for brands.
      * @return object|null Response object.
      * @throws GuzzleException
      */
     public function searchBrandMembers(
-        SearchBrands|array $search = []
+        BrandMember|array $search = []
     ) : object | null
     {
         $output = $this->call( call: 'search_brand_members', payload: $search );
@@ -84,7 +85,7 @@ trait BrandTrait
     public static function createBrandMember() : BrandMember
     {
         $search = new BrandMember();
-        $search->criteria = new BrandCriteria();
+        $search->criteria = new BrandMemberCriteria();
         $search->range = new SearchRange();
 
         return $search;

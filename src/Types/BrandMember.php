@@ -7,9 +7,9 @@ namespace Ocolin\OpenSrsMail\Types;
 class BrandMember extends Payload
 {
     /**
-     * @var BrandCriteria Narrows the search for brands.
+     * @var BrandMemberCriteria Narrows the search for brands.
      */
-    public BrandCriteria $criteria;
+    public BrandMemberCriteria $criteria;
 
     /**
      * @var SearchRange Restricts the number of results that are returned.

@@ -6,7 +6,7 @@ namespace Ocolin\OpenSrsMail\Tests\User;
 
 use Ocolin\OpenSrsMail\Client;
 
-class SearchUserTest extends UserTest
+class SearchUsersTest extends UserTest
 {
     public function testSearchRange() : void
     {

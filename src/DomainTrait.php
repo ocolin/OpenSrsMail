@@ -287,7 +287,8 @@ trait DomainTrait
         DomainSearch|array $search = []
     ) : object | null
     {
-        $output = $this->call( call: 'search_domain', payload: $search );
+        $output = $this->call( call: 'search_domains', payload: $search );
+
         if( empty( $output->body )) { return null; }
         return (object)$output->body;
     }
