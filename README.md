@@ -24,7 +24,7 @@ See .env.example
 
 ### Creating Client with constructor arguments
 
-```
+```php
 // Create client using API info
 $client = new Ocolin\OpenSrsMail\Client(
     base_uri: 'https://admin.test.hostedemail.com/api/',
@@ -45,7 +45,7 @@ $output = $client->call( method: 'authenticate', payload: $payload )->body;
 
 ### Creating Client with Environment variables
 
-```
+```php
 // Set up environment vaiebales somewhere
 $_ENV['OPENSRS_MAIL_SERVER'] = 'https://admin.test.hostedemail.com/api/';
 $_ENV['OPENSRS_MAIL_USER'] = 'myusername@example.com';
