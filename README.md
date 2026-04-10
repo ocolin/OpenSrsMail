@@ -184,7 +184,7 @@ You can also pass some guzzle HTTP configuration options along such as timeouts 
 ```php
 $opensrs = new Ocolin\OpenSrsMail\Client( 
     client: new Ocolin\OpenSrsMail\Config(
-        options: [ 'timeout' => 60, 'verify']=> false 
+        options: [ 'timeout' => 60, 'verify'] => false 
     )
 );
 ```
