@@ -1,202 +1,168 @@
 <?php
 
-/**
- * HTTP client wrapper to make HTTP request to REST server.
- */
-
 declare( strict_types = 1 );
 
 namespace Ocolin\OpenSrsMail;
 
-use Exception;
-use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use Ocolin\OpenSrsMail\Types\Error;
-use Ocolin\OpenSrsMail\Types\Data;
-use Psr\Http\Message\ResponseInterface;
+use Ocolin\OpenSrsMail\Exceptions\HttpException;
+
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Client AS GuzzleClient;
+
 
 class HTTP
 {
     /**
-     * @var Client Guzzle HTTP client.
+     * @var TokenCache Handles token caching.
      */
-    private Client $client;
+    private readonly TokenCache $tokenCache;
 
     /**
-     * @var string OpenSRS API URL.
+     * @var ClientInterface Guzzle handler.
      */
-    private string $base_uri;
+    private ClientInterface $guzzle;
+
+
+/* CONSTRUCTOR
+----------------------------------------------------------------------------- */
 
     /**
-     * @var string[] HTTP request headers.
-     */
-    private array $headers;
-
-/*
-------------------------------------------------------------- */
-
-    /**
-     * @param Client|null $client Guzzle HTTP client.
-     * @param string|null $base_uri OpenSRS API URL.
-     * @param bool $verify Verify SSL certificate.
-     * @param bool $errors Show errors.
-     * @param int $timeout Response timeout.
-     * @throws Exception
+     * @param Config $config Data configuration object.
+     * @param ?ClientInterface $guzzle Guzzle handler for mocking.
      */
     public function __construct(
-        ?Client $client = null,
-        ?string $base_uri = null,
-           bool $verify = false,
-           bool $errors = false,
-            int $timeout = 20
+        private readonly Config $config,
+        ?ClientInterface $guzzle = null
     )
     {
-
-        $this->base_uri = self::load_URL( url: $base_uri );
-        $this->headers = self::default_Headers();
-        $this->client = $client ?? new Client(config: [
-            'base_uri'        => $this->base_uri,
-            'verify'          => $verify,
-            'http_errors'     => $errors,
-            'timeout'         => $timeout,
-            'connect_timeout' => $timeout,
-        ]);
+        $this->tokenCache = new TokenCache( config: $this->config );
+        $this->guzzle = $guzzle ?? new GuzzleClient(
+            array_merge(
+                [ 'timeout' => 20, 'verify' => true, ],
+                $this->config->options,
+                [
+                    'base_uri' => $this->config->host,
+                    'http_errors' => false,
+                    'headers'  => [
+                        'Content-type' => 'application/json; charset=utf-8',
+                        'Accept'       => 'application/json',
+                        'User-Agent'   => 'ocolin/opensrs-mail 2.0',
+                    ]
+                ]
+            )
+        );
     }
 
-    /**
-     * @param string $path Path of method.
-     * @param object $payload Request data.
-     * @param string[]|null $headers HTTP headers
-     * @return object Object containing error message or results data
-     * @throws GuzzleException
-     */
 
 
-
-/* HTTP POST
-------------------------------------------------------------- */
+/* MAKE API REQUEST
+----------------------------------------------------------------------------- */
 
     /**
-     * @param string $path URI path of API method.
-     * @param object $payload Data to send to API.
-     * @param string[]|null $headers Optional HTTP headers.
-     * @return object Response object from API.
+     * @param string $method OpenSRS API method to call.
+     * @param array<string, mixed> $params Method parameters.
+     * @return object Response object.
      * @throws GuzzleException
      */
-    public function post(
-        string $path,
-        object $payload,
-        ?array $headers = null
+    public function request(
+        string $method,
+         array $params = [],
     ) : object
     {
-        if( empty( $this->base_uri ) ) {
-            return new Error( error: "Client: Invalid API base URI." );
-        }
+        $params['credentials'] = $this->getCredentials();
 
-        if( $headers !== null ) {
-            $this->headers = array_merge( $this->headers, $headers );
-        }
-        $options = [
-            'headers' => $this->headers,
-            'body' => json_encode( (object)$payload )
-        ];
-
-        try {
-            $request = $this->client->request(
-                 method: 'POST',
-                    uri: $path,
-                options: $options
-            );
-        }
-        catch ( Exception $e ) {
-            return new Error( error: $e->getMessage());
-        }
-
-        return self::return_Results( request: $request );
-    }
-
-
-
-/* DEFAULT HEADERS
-------------------------------------------------------------- */
-
-    /**
-     * Default required headers for API. These can be overridden
-     * in the post call if needed.
-     *
-     * @return string[] Array of default headers.
-     */
-    private static function default_Headers(): array
-    {
-        return [
-            'Content-type'    => 'application/json; charset=utf-8',
-            'Accept'          => 'application/json',
-            'User-Agent'      => 'Cruzio Client 2.0',
-            'Accept-Charset'  => 'utf-8',
-        ];
-    }
-
-
-
-/* LOAD API URL
-------------------------------------------------------------- */
-
-    /**
-     * If no URL is specified, look for the environment
-     * variable. If neither is found, respond with an
-     * error object.
-     *
-     * @param string|null $url Optional URL to specify.
-     * @return string URL to send to API call.
-     * @throws Exception
-     */
-    public static function load_URL( ?string $url ) : string
-    {
-        if( $url !== null ) { return $url; }
-
-        if(
-            empty( $_ENV['OPENSRS_MAIL_SERVER'] ) OR
-            gettype( $_ENV['OPENSRS_MAIL_SERVER'] ) !== 'string'
-        )
-        {
-            throw new Exception( message: "Client: Invalid API URL" );
-        }
-
-        return $_ENV['OPENSRS_MAIL_SERVER'];
-    }
-
-
-
-/* RETURN HTTP RESPONSE RESULTS
----------------------------------------------------------------------------- */
-
-    /**
-     * @param ResponseInterface $request Guzzle Request object.
-     * @return Data API data object
-     */
-    private static function return_Results( ResponseInterface $request ) : object
-    {
-        $output = new Data(
-            status: $request->getStatusCode(),
-            status_message: $request->getReasonPhrase(),
-            headers: $request->getHeaders(),
-            body: $request->getBody()->getContents()
+        $response = $this->guzzle->request(
+             method: 'POST',
+                uri: $method,
+            options: [ 'json' => $params ]
         );
 
-        if(
-            isset( $output->headers['Content-Type'] ) AND
-            str_contains(
-                haystack: $output->headers['Content-Type'][0],
-                needle: 'application/json'
-            )
-        ) {
-            if( is_string( value: $output->body )) {
-                $output->body = json_decode(json: $output->body);
-            }
+        $body = json_decode( $response->getBody()->getContents());
+        if( !is_object( $body )) {
+            return (object)[
+                'success' => false,
+                'error' => 'Unknown error while decoding HTTP response',
+                'error_number' => null
+            ];
         }
 
-        if( $output->body == null ) { $output->body = []; }
+        return $body;
+    }
 
-        return $output;
+
+
+/* GET CREDENTIALS
+----------------------------------------------------------------------------- */
+
+    /**
+     * @return Credentials Credential object needed for authentication.
+     * @throws GuzzleException
+     */
+    public function getCredentials() : Credentials
+    {
+        // Password mode
+        if( $this->config->mode === 'PASSWORD' ) {
+            return new Credentials(
+                    user: $this->config->username,
+                password: $this->config->password,
+            );
+        }
+
+        // Missign or expired token
+        $token = $this->tokenCache->getToken();
+        if( $token === null ) {
+            $auth = $this->authenticate();
+            $this->tokenCache->write( $auth );
+            return new Credentials(
+                 user: $this->config->username,
+                token: $auth->session_token // @phpstan-ignore property.notFound
+            );
+        }
+
+        // Have valid token
+        return new Credentials(
+             user: $this->config->username,
+            token: $token
+        );
+    }
+
+
+
+/* AUTHENTICATE WITH SERVER
+----------------------------------------------------------------------------- */
+
+    /**
+     * @return object Authentication response object.
+     * @throws GuzzleException
+     */
+    private function authenticate() : object
+    {
+        $response = $this->guzzle->request(
+             method: 'POST',
+                uri: 'authenticate',
+            options: [
+                'json' => [
+                    'credentials' => [
+                        'user' => $this->config->username,
+                        'password' => $this->config->password,
+                    ],
+                    'generate_session_token' => true,
+                    'session_token_duration' => $this->config->token_expiration
+                ]
+            ]
+        );
+
+        $body = json_decode( $response->getBody()->getContents() );
+        if( !is_object( $body ) OR empty( $body->success ) ) {
+            $error = 'Unknown error';
+            if( is_object( $body ) AND !empty( $body->error ) ) {
+                $error = $body->error;
+            }
+
+            throw new HttpException(  message: $error );
+        }
+
+        return $body;
     }
 }

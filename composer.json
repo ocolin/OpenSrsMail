@@ -2,19 +2,34 @@
     "name": "ocolin/open-srs-mail",
     "description": "REST Client for OpenSRS Email API",
     "type": "library",
+    "keywords": [
+        "opensrs",
+        "email",
+        "api",
+        "client",
+        "rest",
+        "hostedemail",
+        "mail",
+        "provisioning"
+    ],
     "require": {
         "guzzlehttp/guzzle": "^7.10",
         "php": ">=8.3",
-        "ocolin/easyenv": "^2.4"
+        "ocolin/global-type": "^2.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^12.4",
-        "phpstan/phpstan": "^2.1"
+        "phpunit/phpunit": "^13.0",
+        "phpstan/phpstan": "^2.1",
+        "ocolin/easyenv": "^3.0"
     },
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Ocolin\\OpenSrsMail\\": "src/",
+            "Ocolin\\OpenSrsMail\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
             "Ocolin\\OpenSrsMail\\Tests\\": "tests/"
         }
     },
@@ -23,5 +38,10 @@
             "name": "Colin Miller",
             "email": "ocolin@cruzio.com"
         }
-    ]
+    ],
+    "scripts": {
+        "test": "vendor/bin/phpunit --no-coverage --display-deprecations --display-notices",
+        "debug": "vendor/bin/phpunit --no-coverage --display-deprecations --display-notices --debug",
+        "test-coverage": "XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-html coverage"
+    }
 }
