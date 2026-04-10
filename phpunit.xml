@@ -1,48 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
-        bootstrap="./tests/bootstrap.php"
+        bootstrap="vendor/autoload.php"
         colors="true"
         stopOnFailure="true"
         beStrictAboutChangesToGlobalState="true"
         cacheDirectory=".phpunit.cache"
         displayDetailsOnTestsThatTriggerWarnings="true"
+        displayDetailsOnTestsThatTriggerNotices="true"
         displayDetailsOnTestsThatTriggerDeprecations="true"
 >
     <testsuites>
-        <testsuite name="company">
-<!--            <file>tests/Company/GetCompanyTest.php</file>-->
-<!--            <file>tests/Company/GetCompanyChangesTest.php</file>-->
+        <testsuite name="Unit">
+            <directory>tests/Unit</directory>
         </testsuite>
-        <testsuite name="domain">
-<!--            <file>tests/Domain/GetDomainTest.php</file>-->
-<!--            <file>tests/Domain/GetDomainChangesTest.php</file>-->
-<!--            <file>tests/Domain/SearchDomainsTest.php</file>-->
-        </testsuite>
-        <testsuite name="brand">
-<!--            <file>tests/Brand/SearchBrandTest.php</file>-->
-        </testsuite>
-        <testsuite name="stats">
-<!--            <file>tests/Stats/StatsTest.php</file>-->
-        </testsuite>
-        <testsuite name="user">
-<!--            <file>tests/User/SearchAdminTest.php</file>-->
-<!--            <file>tests/User/SearchUsersTest.php</file>-->
-<!--            <file>tests/User/GetUserTest.php</file>-->
-<!--            <file>tests/User/GenerateTokenTest.php</file>-->
-<!--            <file>tests/User/GetDeletedContactsTest.php</file>-->
-<!--            <file>tests/User/GetDeletedMessagesTest.php</file>-->
-<!--            <file>tests/User/GetUserAttributeHistoryTest.php</file>-->
-<!--            <file>tests/User/GetUserChangesTest.php</file>-->
-<!--            <file>tests/User/GetUserFoldersTest.php</file>-->
-<!--            <file>tests/User/LogoutUserTest.php</file>-->
-<!--            <file>tests/User/ReindexTest.php</file>-->
-            <file>tests/User/GetSieveTest.php</file>
-        </testsuite>
-        <testsuite name="tests">
-<!--            <file>tests/EchoTest.php</file>-->
-<!--            <file>tests/CompanyTest.php</file>-->
-<!--            <file>tests/UserTest.php</file>-->
-<!--            <file>tests/UserSearchTest.php</file>-->
+        <testsuite name="Integration">
+            <directory>tests/Integration</directory>
         </testsuite>
     </testsuites>
+
+    <source>
+        <include>
+            <directory>src</directory>
+        </include>
+    </source>
+
+    <coverage>
+        <report>
+            <html outputDirectory="coverage"/>
+            <text outputFile="php://stdout" showOnlySummary="true"/>
+        </report>
+    </coverage>
 </phpunit>
